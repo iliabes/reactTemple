@@ -4,6 +4,7 @@ import { fetchUsers } from "../../store/redusers/UsersSlice"
 import { useAppDispatch } from "../../hooks/redux"
 import { useAppSelector } from "../../hooks/redux"
 import { useEffect, useState } from "react"
+import { Link } from 'react-router-dom';
 
 function Posts() {
   let acunkUsers = useState(useAppSelector(state => state.rootReduser.usersSlice.users))
@@ -23,7 +24,7 @@ function Posts() {
     <>
     <div className={s.posts}>
         {posts}
-  
+        
     </div>
     </>
   )

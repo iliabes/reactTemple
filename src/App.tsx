@@ -10,7 +10,9 @@ import { Routes, Route, } from 'react-router-dom';
 import HomePage from './pages/homePage';
 import AboutPage from './pages/aboutPage';
 import PostPage from './pages/postPage';
-
+import Post from './pages/post';
+import NotFound from './pages/notFoundPAge';
+import Layout from './components/lauout/Layout'
 
 export default function App() {
 
@@ -30,7 +32,15 @@ export default function App() {
   return (
    <>
    <Routes>
-      <Route path='/' element={<HomePage/>}/>
+    <Route path='/' element={<Layout/>}>
+      <Route index element={<HomePage/>}/>
+      <Route path='about' element={<AboutPage/>}/>
+      <Route path='/posts' element={<PostPage/>}>
+        <Route path='post' element={<Post/>}/>
+      </Route>
+      <Route path='/post' element={<Post/>}/>
+      <Route path='*' element={<NotFound/>}/>
+    </Route>
    </Routes>
    </>
 

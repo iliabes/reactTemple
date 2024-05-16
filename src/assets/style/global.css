@@ -1,0 +1,10 @@
+:root {
+    --main-bg-color: brown;
+  }
+  
+
+body{
+    margin: 0px !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+}

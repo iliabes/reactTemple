@@ -38,7 +38,7 @@ export default function App() {
       <Route path='/posts' element={<PostPage/>}>
         <Route path='post' element={<Post/>}/>
       </Route>
-      <Route path='/post' element={<Post/>}/>
+      <Route path='/post/:123' element={<Post/>}/>
       <Route path='*' element={<NotFound/>}/>
     </Route>
    </Routes>

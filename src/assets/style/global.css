@@ -8,3 +8,12 @@ body{
     padding: 0 !important;
     box-sizing: border-box;
 }
+
+html[data-theme="dark"]{
+    background-color: #fff;
+}
+
+
+html[data-theme="light"]{
+    background-color: #000;
+}

@@ -1,6 +1,6 @@
 import Posts from "../components/Posts/Posts";
 import {  useLocation } from 'react-router-dom';
-import {Outlet} from 'react-router-dom'
+
  
 const Post = () => {
     const location = useLocation();
@@ -9,7 +9,7 @@ const Post = () => {
     return (
     <>
         <h2>this is Post -{location.pathname} </h2>
-        <Outlet/>
+        
     </>
     );
 }

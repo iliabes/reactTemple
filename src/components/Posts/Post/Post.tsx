@@ -24,7 +24,7 @@ const style = {
                 <Card className={s.card} theme="success" size="l">
                     <h2>{props.name}</h2>
                     <span>{props.userName}e</span>
-                    <Link  to={'123'}>Link</Link>
+                    <Link  to={`post/${props.userName}`}>Link</Link>
                 </Card>
             </div>
         </>

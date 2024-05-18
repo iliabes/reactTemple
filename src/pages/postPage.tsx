@@ -6,7 +6,7 @@ const PostPage = () => {
     <>
         <Outlet/>
         <h2>Posts</h2>
-        <Posts/>\
+        <Posts/>
         
     </>
     );

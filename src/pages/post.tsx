@@ -6,7 +6,9 @@ const Post = () => {
     const location = useLocation();
     return (
     <>
+        <section className="section">
         <h2>this is Post -{location.pathname} </h2>
+        </section>
     </>
     );
 }

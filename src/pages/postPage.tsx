@@ -4,10 +4,11 @@ import {Outlet} from 'react-router-dom'
 const PostPage = () => {
     return (
     <>
+        <section className="section">
+        <h2 className="title">Posts</h2>
         <Outlet/>
-        <h2>Posts</h2>
         <Posts/>
-        
+        </section>
     </>
     );
 }

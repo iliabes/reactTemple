@@ -3,7 +3,9 @@
 function HomePage() {
     return (  
         <>
-            <h2>homePage</h2>
+            <section className="section">
+            <h2 className="title">HomePage</h2>
+            </section>
         </>
     );
 }

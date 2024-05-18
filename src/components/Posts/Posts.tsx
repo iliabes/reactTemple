@@ -22,10 +22,11 @@ function Posts() {
   const posts = users.map(item => <Post name={item.name} key={item.id} userName={item.username}/>)
   return (
     <>
-    <div className={s.posts}>
-        {posts}
-        
-    </div>
+        <div className="fixed-grid has-4-cols">
+          <div className="grid ">
+          {posts}
+          </div>
+        </div>
     </>
   )
 }

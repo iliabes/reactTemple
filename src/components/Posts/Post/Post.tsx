@@ -1,4 +1,3 @@
-import {Card} from '@gravity-ui/uikit';
 import s from './Post.module.sass'
 import { Link } from "react-router-dom";
 
@@ -20,13 +19,17 @@ const style = {
  function Post(props:IPost){
     return (
         <>
-            <div className={s.post}>
-                <Card className={s.card} theme="success" size="l">
-                    <h2>{props.name}</h2>
-                    <span>{props.userName}e</span>
-                    <Link  to={`post/${props.userName}`}>Link</Link>
-                </Card>
-            </div>
+                <div className='card ' size="l">
+                    <div className="card-header">
+                        <h2 className="title is-4">{props.name}</h2>
+                    </div>
+                    <div className="card-content">
+                        <span className="subtitle is-6">{props.userName}e</span>
+                    </div>
+                    <div>
+                    <Link  className="button is-info"  to={`post/${props.userName}`}>Link</Link>
+                    </div>
+                </div>
         </>
     );
 }

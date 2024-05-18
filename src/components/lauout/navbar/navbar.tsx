@@ -1,19 +1,26 @@
 import { Link , useNavigate} from "react-router-dom";
 import s from './navbar.module.sass'
+import useTheme from "../../../hooks/useTheme";
+import {Switch} from '@gravity-ui/uikit';
 
 
 function Navbar() {
     const navigate = useNavigate();
+    const theme = useTheme()
+    function switchTheme(){theme()}
+
+
     return ( 
         <>
-        <div className={s.Navbar}>
-            <ul className={s.Navbar__container}>
-                <li className={s.Navigation__li}><Link className={s.Navbar__link} to={'/'}>Home</Link></li>
-                <li className={s.Navigation__li}><Link className={s.Navbar__link} relative="path" to={'About'} >About</Link></li>
-                <li className={s.Navigation__li}><Link className={s.Navbar__link} to={'posts'}>Posts</Link></li>
-                <li className={s.Navigation__li}><a onClick={()=>{navigate(-1)}} className={s.Navbar__link} >Go back</a></li>
+            <div className></div>
+            <ul className='navbar is-warning navbar-end' role="navigation" aria-label="dropdown navigation">
+                <li className='navbar-item'><Link className='button' to={'/'}>Home</Link></li>
+                <li className='navbar-item'><Link className='button' relative="path" to={'about'} >About</Link></li>
+                <li className='navbar-item'><Link className='button' to={'posts'}>Posts</Link></li>
+                <li className='navbar-item'><button  onClick={()=>{navigate(-1)}} className='button' >Go back</button></li>
+                 <li className='navbar-item'><Switch size="m" onChange={switchTheme}>Dark</Switch></li>  
             </ul>
-        </div>
+        {/*<div className="navbar"></div>*/}
         </>
      );
 }

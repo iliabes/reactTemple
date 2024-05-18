@@ -1,19 +1,42 @@
+@import 'bulma.min.css'
+
+
 :root {
     --main-bg-color: brown;
-  }
+    --bulma-title-color: red;
+}
   
+main{
+    background-color: redx`;
+}
 
-body{
+body {
     margin: 0px !important;
     padding: 0 !important;
     box-sizing: border-box;
+    background-color: red ;
 }
 
+
+/*html[data-theme="dark"] body{
+    background-color: #000;
+}*/
+
+
+html[data-theme="light"] body{
+    background-color: red;
+}
+
+
+
+
 html[data-theme="dark"]{
-    background-color: #fff;
+    background-color: #000;
+
 }
 
 
 html[data-theme="light"]{
-    background-color: #000;
+    background-color: #fff;
+
 }

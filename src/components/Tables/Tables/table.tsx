@@ -8,13 +8,13 @@ const column = ['id', 'username', 'website', 'email', 'phone']
 
 
 
-function TableHeader({column}) {
+function TableHeader({column,sorting}) {
     return (
         <>
             <thead>
                 <tr>
                     {column.map((elem: any, index: number) => (
-                        <th key={index}>{elem.toUpperCase()}</th>
+                        <HeaderCell value={elem} key={index} column={column} sorting={sorting}/>
                     ))}
                 </tr>
             </thead>
@@ -22,14 +22,37 @@ function TableHeader({column}) {
     )
 }
 
-function TableBody({ entries, column ,sorting}) {
+function HeaderCell({column,sorting,key,value}){
+    const isDescent = sorting.order === 'des' &&  sorting.column === value;
+    const isAscent = sorting.order === 'asc' &&  sorting.column === value;
+    const nextSortingOrder = isDescent ? 'asc' : 'des'
+    console.log(' HeaderCell column',value)
+
+
+
+    function sortData(){
+        console.log(sorting)
+    }
+    return(
+        <th onClick={()=>{sortData()}} key={key}>
+            {value}
+            {isAscent && <span>▲</span>}
+            {isDescent && <span>👇🏻</span>}
+            </th>
+        // {isDescent && ''<span>'🎈'</span> }
+        
+
+    )
+}
+
+function TableBody({ entries, column ,}) {
     return (
         <>
             <tbody>
                 {entries.map((elem, index) => (
                     <tr>
                         {column.map((item,indexCol:number)=>(
-                            <HeaderCell value={elem[item]} key={indexCol+elem[item]} column={column} sorting={sorting}/>
+                            <td key={indexCol}>{elem[item]}</td>
                         ))}
                     </tr>
                 ))}
@@ -52,11 +75,7 @@ function TableFooter({column}) {
     )
 }
 
-function HeaderCell({column,sorting,key,value}){
-    return(
-        <th key={key}>{value}</th>
-    )
-}
+
 
 function Table() {
     const [sorting,setSorting] = useState({column:'id',order:'asc'})
@@ -65,8 +84,8 @@ function Table() {
 
     return (
         <table className='table is-fullwidth'>
-            <TableHeader column={column} />
-            <TableBody column={column} entries={data} sorting={sorting}/>
+            <TableHeader column={column} sorting={sorting}/>
+            <TableBody column={column} entries={data} />
             <TableFooter column={column}/>
         </table>
     )

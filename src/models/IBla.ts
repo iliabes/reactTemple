@@ -1,7 +1,9 @@
-export default interface IBla{
+export default interface IUser{
     id: number,
-    name: string,
+    website: string,
     username: string,
     email: string,
-    phone: string,
+    phone: number,
+    wirewolf: boolean,
+    age: number
 }

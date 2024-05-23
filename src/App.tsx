@@ -11,6 +11,7 @@ import HomePage from './pages/homePage';
 import AboutPage from './pages/aboutPage';
 import PostPage from './pages/postPage';
 import Post from './pages/post';
+import FirebasePage from './pages/firebasePage';
 import NotFound from './pages/notFoundPAge';
 import Layout from './components/lauout/Layout'
 
@@ -36,6 +37,7 @@ export default function App() {
     <Route path='/' element={<Layout/>}>
       <Route index element={<HomePage/>}/>
       <Route path='about' element={<AboutPage/>}/>
+      <Route path='firebase' element={<FirebasePage/>}/>
       <Route path='/posts' element={<PostPage/>}>
         <Route path='post' element={<Post/>}/>
       </Route>

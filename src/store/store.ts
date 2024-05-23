@@ -1,11 +1,12 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import  usersSlice  from './redusers/UsersSlice'
 import counterSlice from './redusers/CounterSlice'
-
+import firebaseReduser from './redusers/firebaseReduser'
 
 const rootReduser = combineReducers({
   counterSlice,
-  usersSlice
+  usersSlice,
+  firebaseReduser
 })
 
 export const store = configureStore({

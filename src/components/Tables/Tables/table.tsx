@@ -12,33 +12,35 @@ function TableHeader({column,sorting,fnSort}) {
         <>
             <thead>
                 <tr>
-                    {column.map((elem: any, index: number) => (
-                        <HeaderCell fnSort={fnSort} value={elem} key={index} column={column} sorting={sorting}/>
-                    ))}
+                    {column.map((elem: any, index: number) => {
+                        
+                       return  <HeaderCell fnSort={fnSort} value={elem} key={index} myKey={index} column={column} sorting={sorting}/>
+                    
+                    })}
                 </tr>
             </thead>
         </>
     )
 }
 
-function HeaderCell({column,sorting,key,value,fnSort}){
+function HeaderCell({column,sorting,myKey,value,fnSort}){
     const isDescent = sorting.order === 'des' &&  sorting.column === value;
     const isAscent = sorting.order === 'asc' &&  sorting.column === value;
     const nextSortingOrder = isDescent ? 'asc' : 'des'
+   
 
 
 
 
-    function sortData(){
-        console.log(sorting)
-    }
+
+
     return(
-        <th onClick={()=>{fnSort()}} key={key}>
+        <th onClick={()=>{fnSort()}} key={myKey}>
             {value}
             {isAscent && <span>▲</span>}
             {isDescent && <span>👇🏻</span>}
             </th>
-        // {isDescent && ''<span>'🎈'</span> }
+
         
 
     )
@@ -60,6 +62,7 @@ function TableBody({ entries, column ,}) {
     )
 }
  
+
 function TableFooter({column}) {
     return (
         <>
@@ -76,11 +79,25 @@ function TableFooter({column}) {
 
 
 
+
+//------------------main
 function Table() {
     const [sorting,setSorting] = useState({column:'id',order:'asc'})
     const data = useAppSelector((state) => state.rootReduser.firebaseReduser.fireUsers)
-    
+    const serchData = useState('')
 
+    console.log('data',data)
+
+    function serchDataFn(){
+        console.log(data)
+        let newDate ;
+        data.forEach((user)=>{
+            console.log(typeof user)
+            for (let item in user){
+                console.log(user[item],String(user[item]).includes('user'))
+            }
+        })
+    }
 
     function fnSort(prop,dir=false){
         //потом передавить проы и директорию соотвестевенно
@@ -92,16 +109,22 @@ function Table() {
 
         console.log(newData)
        
-
     }
 
 
     return (
+        <>
+        <div className='box'>
+            <input type='text'/>
+            <button onClick={()=>{serchDataFn()}} className='button'>Search</button>
+        </div>
+
         <table className='table is-fullwidth'>
             <TableHeader column={column} sorting={sorting} fnSort={fnSort}/>
             <TableBody column={column} entries={data} />
             <TableFooter column={column}/>
         </table>
+        </>
     )
 }
 

@@ -17,9 +17,9 @@ function Navbar() {
                 <li className='navbar-item'><Link className='button' relative="path" to={'firebase'} >Firebase</Link></li>
                 <li className='navbar-item'><Link className='button' to={'posts'}>Posts</Link></li>
                 <li className='navbar-item'><button  onClick={()=>{navigate(-1)}} className='button' >Go back</button></li>
-                 <li className='navbar-item'><Switch size="m" onChange={switchTheme}>Dark</Switch></li>  
+                <li className='navbar-item'><Switch size="m" onChange={switchTheme}>Dark</Switch></li>  
             </ul>
-        {/*<div className="navbar"></div>*/}
+
         </>
      );
 }

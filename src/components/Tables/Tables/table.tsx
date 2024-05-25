@@ -4,17 +4,16 @@ import { useAppSelector } from '../../../hooks/redux'
 
 
 
-const column = ['id', 'username', 'website', 'email', 'phone']
+const column = ['id', 'username', 'website', 'email', 'phone','age']
 
 
-
-function TableHeader({column,sorting}) {
+function TableHeader({column,sorting,fnSort}) {
     return (
         <>
             <thead>
                 <tr>
                     {column.map((elem: any, index: number) => (
-                        <HeaderCell value={elem} key={index} column={column} sorting={sorting}/>
+                        <HeaderCell fnSort={fnSort} value={elem} key={index} column={column} sorting={sorting}/>
                     ))}
                 </tr>
             </thead>
@@ -22,11 +21,11 @@ function TableHeader({column,sorting}) {
     )
 }
 
-function HeaderCell({column,sorting,key,value}){
+function HeaderCell({column,sorting,key,value,fnSort}){
     const isDescent = sorting.order === 'des' &&  sorting.column === value;
     const isAscent = sorting.order === 'asc' &&  sorting.column === value;
     const nextSortingOrder = isDescent ? 'asc' : 'des'
-    console.log(' HeaderCell column',value)
+
 
 
 
@@ -34,7 +33,7 @@ function HeaderCell({column,sorting,key,value}){
         console.log(sorting)
     }
     return(
-        <th onClick={()=>{sortData()}} key={key}>
+        <th onClick={()=>{fnSort()}} key={key}>
             {value}
             {isAscent && <span>▲</span>}
             {isDescent && <span>👇🏻</span>}
@@ -80,11 +79,26 @@ function TableFooter({column}) {
 function Table() {
     const [sorting,setSorting] = useState({column:'id',order:'asc'})
     const data = useAppSelector((state) => state.rootReduser.firebaseReduser.fireUsers)
-    console.log(data);
+    
+
+
+    function fnSort(prop,dir=false){
+        //потом передавить проы и директорию соотвестевенно
+        console.log(data)
+        let newDAte = data.sort((a,b)=>{
+            console.log(a)
+            }
+        )
+
+        console.log(newData)
+       
+
+    }
+
 
     return (
         <table className='table is-fullwidth'>
-            <TableHeader column={column} sorting={sorting}/>
+            <TableHeader column={column} sorting={sorting} fnSort={fnSort}/>
             <TableBody column={column} entries={data} />
             <TableFooter column={column}/>
         </table>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAppSelector } from '../../../hooks/redux'
 
 
@@ -26,16 +26,37 @@ function TableHeader({column,sorting,fnSort}) {
 function HeaderCell({column,sorting,myKey,value,fnSort}){
     const isDescent = sorting.order === 'des' &&  sorting.column === value;
     const isAscent = sorting.order === 'asc' &&  sorting.column === value;
-    const nextSortingOrder = isDescent ? 'asc' : 'des'
-   
+    let nextSortingOrder = isAscent ? 'asc' : 'des'
+    let currentCol = false
+    if(isDescent || isAscent){currentCol = true}
 
+    
+    console.log(currentCol)
 
+    
 
+    // if(isDescent && isAscent){
+    //     console.log('HeaderCell nextSortingOrder',isAscent)
+    // }
+    // changhe()
 
+    
+    function changhe(){
+        console.log(isAscent)
+        // setIsAscend(!isAscent)
+    }
+
+    function bla(){
+        console.log('bla')
+    }
+
+    function blo(){
+        console.log('blo')
+    }
 
 
     return(
-        <th onClick={()=>{fnSort()}} key={myKey}>
+        <th onClick= {currentCol ? ()=>{fnSort(value,nextSortingOrder);changhe()} : (event)=>{event.preventDefault();}} key={myKey}>
             {value}
             {isAscent && <span>▲</span>}
             {isDescent && <span>👇🏻</span>}
@@ -51,7 +72,7 @@ function TableBody({ entries, column ,}) {
         <>
             <tbody>
                 {entries.map((elem, index) => (
-                    <tr>
+                    <tr key={index}>
                         {column.map((item,indexCol:number)=>(
                             <td key={indexCol}>{elem[item]}</td>
                         ))}
@@ -82,32 +103,55 @@ function TableFooter({column}) {
 
 //------------------main
 function Table() {
-    const [sorting,setSorting] = useState({column:'id',order:'asc'})
-    const data = useAppSelector((state) => state.rootReduser.firebaseReduser.fireUsers)
+    const [sorting,setSorting] = useState({column:'age',order:'asc'})
+    const [data,setData] = useState(useAppSelector((state) => state.rootReduser.firebaseReduser.fireUsers))
+    let newDate = useAppSelector((state) => state.rootReduser.firebaseReduser.fireUsers)
     const serchData = useState('')
+   
+    useEffect(()=>{setData(newDate)},[newDate])
 
-    console.log('data',data)
+    function debounce(func, ms) {
+        let timeout;
+        return function() {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => func.apply(this, arguments), ms);
+        };
+      }
 
     function serchDataFn(){
-        console.log(data)
-        let newDate ;
+        console.log('sorting')
+        if(sorting === ''){
+            setData(newDate)
+            return 
+        }
+        let sortDate = [] ;
         data.forEach((user)=>{
-            console.log(typeof user)
             for (let item in user){
-                console.log(user[item],String(user[item]).includes('user'))
+                if(String(user[item]).includes(sorting)){
+                    sortDate.push(user)
+                    break;
+                }
             }
         })
+        // console.log(newDate);
+        setData(sortDate)
     }
 
-    function fnSort(prop,dir=false){
-        //потом передавить проы и директорию соотвестевенно
-        console.log(data)
-        let newDAte = data.sort((a,b)=>{
-            console.log(a)
+    function fnSort(prop,sort){
+        //потом передавить проы и директорию соотвестевенно prop,dir=false
+        let copyData = [...data]
+        console.log('fnSort copydata',copyData,column,sort)
+        let newDAte = copyData.sort((a,b)=>{
+            if(sort === 'dex'){
+                if(Number(a[prop]) < Number(b[prop])){return 1}
+            }else{
+                if(Number(a[prop]) < Number(b[prop])){return -1}
             }
-        )
 
-        console.log(newData)
+        }
+        )
+        setData(newDAte)
+
        
     }
 
@@ -115,7 +159,7 @@ function Table() {
     return (
         <>
         <div className='box'>
-            <input type='text'/>
+            <input onChange={(e)=>{setSorting(e.target.value)}} type='text'/>
             <button onClick={()=>{serchDataFn()}} className='button'>Search</button>
         </div>
 

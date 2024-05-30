@@ -13,8 +13,6 @@ function FirebasePage() {
     let [websait , setWebsait] = useState('')
     let [phone , setPhone] = useState('')
     let fireUsers = useAppSelector(state => state.rootReduser.firebaseReduser.fireUsers)
-
-
     const dispatch = useAppDispatch()
 
     
@@ -65,7 +63,7 @@ function FirebasePage() {
 
     return (
         <>
-            <section className="section">
+            <section className="section ">
                 <h2 className="title">Firebase</h2>
                 <form  className="form">
                     <div className="field">
@@ -106,7 +104,7 @@ function FirebasePage() {
                 </div>
             </section>
         </>
-    );
+    )
 }
 
 export default FirebasePage;

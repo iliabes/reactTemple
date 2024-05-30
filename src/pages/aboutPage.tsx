@@ -1,7 +1,9 @@
 import Layout from "../components/lauout/Layout";
+import Form from "../components/form/Form"
 import useStore from "../hooks/useStore";
 import {useState} from 'react' 
 import 'bulma/css/bulma.min.css';
+import './bla.css'
 
 
 function AboutPage() {
@@ -21,20 +23,9 @@ function AboutPage() {
     }
     return (  
         <>
-        <section className="section">
-        <h2 className="title">About</h2>
-        <div className="grid">
-         <div className="box ">
-         <h1 className="title ">[true,true,true,true,false,true,true]</h1>
-         <h2 className="subtitle">{value}</h2>
-         <button className="button" onClick={test}>{'click'}</button>
-         </div>
-         <div className='box'>
-         <h1 className="title">[false,false,false,false,false,true,false]</h1>
-         <h2 className="subtitle">{value2}</h2>
-         <button className="button" onClick={test2}>{'click'}</button>
-         </div>
-        </div>
+        <section className="section bgAnim">
+        <h2 className="title">Form</h2>
+        <Form/>
         </section>
         </>
     );

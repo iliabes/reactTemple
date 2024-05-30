@@ -65,6 +65,12 @@ function FirebasePage() {
         <>
             <section className="section ">
                 <h2 className="title">Firebase</h2>
+
+
+                <div className="box">
+                    <Table/>
+                </div>
+
                 <form  className="form">
                     <div className="field">
                         <label className="label">Name</label>
@@ -98,9 +104,6 @@ function FirebasePage() {
                 <div className="box mt-2">
                     <button onClick={()=>{console.log(fireUsers)}} className="button  has-background-link">console.log</button>
                     
-                </div>
-                <div className="box">
-                    <Table/>
                 </div>
             </section>
         </>

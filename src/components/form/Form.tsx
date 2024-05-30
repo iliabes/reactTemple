@@ -1,55 +1,92 @@
 import { useState,useEffect } from 'react';
 
 function myForm(){
- const [name , setName] = useState('name')
- const [durtName , setDurtName] = useState(false)
- const [validName , setValidName] = useState(false)
+ const [userName , setUserName] = useState('userName')
+ const [durtUserName , setDurtUserName] = useState(false)
+ const [validUserName , setValidUserName] = useState(false)
 
- const [surname , setSurname] = useState('surname')
- const [durtSurname , setfurtSurname] = useState(false)
- const [validSurName , setValidSurName] = useState(true)
-
- const [btnActive , setBtnActive] = useState(true)
+ const [mail , setMail] = useState('mail')
+ const [durtMail , setdurtMail] = useState(false)
+ const [valiMail , setValidMail] = useState(true)
 
 
- function validField(stroke,setValue){
- 	if(stroke.length > 5){
- 		console.log('valid')
- 		setValidName(true)
- 	}else{
- 		console.log('not valid')
- 		setValidName(false)
- 	}
+ const [password , setPassword] = useState('password')
+ const [durtPassword , setDurtPassword] = useState(false)
+ const [validPassword , setValidPassword] = useState(true)
+
+ const [btnActive , setBtnActive] = useState(false)
+
+
+
+
+
+function fnValidUserName(userName:string):boolean{
+	const  re = /^[a-zA-Z][a-zA-Z0-9-]+$/;
+	return re.test(String(userName).toLowerCase());
+}
+
+
+function fnValidEmail(email:string):boolean{
+	const  re = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+	return re.test(String(email).toLowerCase());
+}
+
+function fnValidPassword(password:string):boolean{
+	const  re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{6,}/;
+	return re.test(String(password));
  }
 
 
 useEffect(()=>{
-	validField(name,setValidName)
-},[name])
+	if(fnValidEmail(mail)){
+		setValidMail(true)
+	}else{
+		setValidMail(false)
+	}
+},[mail])
 
- useEffect(()=>{
- 	console.log(validName)
- 	if(validSurName && validName){
- 		console.log('btn active')
- 		setBtnActive(false)
- 	}else{
- 		setBtnActive(true)
- 	}
+useEffect(()=>{
+	if(fnValidUserName(userName) && (userName.length > 3 && userName.length < 8) ){
+		setValidUserName(true)
+	}else{
+		setValidUserName(false)
+	}
+},[userName])
 
- },[validSurName,validName])
+useEffect(()=>{
+	if(fnValidPassword(password) && (userName.length > 3 && userName.length < 8) ){
+		setValidPassword(true)
+	}else{
+		setValidPassword(false)
+	}
+},[password])
+
+
+
+useEffect(()=>{
+	console.log(validUserName)
+	if(valiMail && validUserName && validPassword){
+		console.log('btn active')
+		setBtnActive(true)
+	}else{
+		setBtnActive(false)
+	}
+},[valiMail,validUserName,validPassword])
 
 	return (	
 	<div className="field">
 		<div className="control">
-		    {(durtName && !validName) && <p className=' is-5 mt-2'>error</p>}
-		 	<input  onBlur={()=>{setDurtName(true)}} onChange={(e)=>{setName(e.target.value)}} className="input is-success mt-2" type="text" placeholder="Name" value={name}/>
-		 	{durtSurname && <p className=' is-5 mt-2'>error</p>}
-			<input onBlur={()=>{setfurtSurname(true)}}  onChange={(e)=>{setSurname(e.target.value)}} className="input is-success mt-2" type="text" placeholder="Surname" value={surname} />
-			<button disabled={btnActive} className="button is-primary mt-4 ">Submit</button>
+			{(durtMail && !valiMail) && <p className=' is-5 mt-2'>error</p>}
+			<input onBlur={()=>{setdurtMail(true)}}  onChange={(e)=>{setMail(e.target.value)}} className="input is-success mt-2" type="text" placeholder="mail" value={mail} />
+		    {(durtUserName && !validUserName) && <p className=' is-5 mt-2'>error</p>}
+		 	<input  onBlur={()=>{setDurtUserName(true)}} onChange={(e)=>{setUserName(e.target.value)}} className="input is-success mt-2" type="text" placeholder="userName" value={userName}/>
+			{(durtPassword && !validPassword)  && <p className=' is-5 mt-2'>error</p>}
+			<input onBlur={()=>{setDurtPassword(true)}}  onChange={(e)=>{setPassword(e.target.value)}} className="input is-success mt-2" type="text" placeholder="password" value={password} />
+			<button disabled={!btnActive} className="button is-primary mt-4 ">Submit</button>
 		</div>
 		<div className='mt-2'>
-			<p className="title is-3">Имя: <span className="title is-4">{name}</span> </p>
-			<p className="title is-3">Фамилия: <span className="title is-4">{surname}</span></p>
+			<p className="title is-3">Имя: <span className="title is-4">{userName}</span> </p>
+			<p className="title is-3">Фамилия: <span className="title is-4">{mail}</span></p>
 		</div>
 	</div>
 	)

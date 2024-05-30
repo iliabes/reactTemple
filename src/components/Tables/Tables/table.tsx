@@ -24,39 +24,32 @@ function TableHeader({column,sorting,fnSort}) {
 }
 
 function HeaderCell({column,sorting,myKey,value,fnSort}){
-    const isDescent = sorting.order === 'des' &&  sorting.column === value;
-    const isAscent = sorting.order === 'asc' &&  sorting.column === value;
-    let nextSortingOrder = isAscent ? 'asc' : 'des'
-    let currentCol = false
-    if(isDescent || isAscent){currentCol = true}
-
-    
-    console.log(currentCol)
-
+    let [sortingOrder,setSortingOrder] = useState(sorting.order)
+    let isCurrent = false
+    if(sorting.column === value){
+        isCurrent = true
+    }
+    const isDescent = sortingOrder === 'des' &&  isCurrent
+    const isAscent = sortingOrder === 'asc' &&  isCurrent
     
 
-    // if(isDescent && isAscent){
-    //     console.log('HeaderCell nextSortingOrder',isAscent)
-    // }
-    // changhe()
 
+
+    
     
     function changhe(){
-        console.log(isAscent)
-        // setIsAscend(!isAscent)
+        if(sortingOrder === 'des'){
+            setSortingOrder('asc')
+        }else{
+            setSortingOrder('des')
+        }
     }
 
-    function bla(){
-        console.log('bla')
-    }
 
-    function blo(){
-        console.log('blo')
-    }
 
 
     return(
-        <th onClick= {currentCol ? ()=>{fnSort(value,nextSortingOrder);changhe()} : (event)=>{event.preventDefault();}} key={myKey}>
+        <th onClick= {isCurrent ? ()=>{fnSort(value,sortingOrder);changhe()} : (event)=>{event.preventDefault();}} key={myKey}>
             {value}
             {isAscent && <span>▲</span>}
             {isDescent && <span>👇🏻</span>}
@@ -104,11 +97,13 @@ function TableFooter({column}) {
 //------------------main
 function Table() {
     const [sorting,setSorting] = useState({column:'age',order:'asc'})
+    const [serchData,setSerchData] = useState('')
     const [data,setData] = useState(useAppSelector((state) => state.rootReduser.firebaseReduser.fireUsers))
     let newDate = useAppSelector((state) => state.rootReduser.firebaseReduser.fireUsers)
-    const serchData = useState('')
+
    
-    useEffect(()=>{setData(newDate)},[newDate])
+    useEffect(()=>{setData(newDate)},[])
+    // useEffect(()=>{setData(serchData)},[serchData])
 
     function debounce(func, ms) {
         let timeout;
@@ -116,24 +111,26 @@ function Table() {
           clearTimeout(timeout);
           timeout = setTimeout(() => func.apply(this, arguments), ms);
         };
-      }
+    }
 
-    function serchDataFn(){
-        console.log('sorting')
+
+    function serchDataFn(serchData){
+        console.log('sorting',serchData)
         if(sorting === ''){
             setData(newDate)
             return 
         }
+
         let sortDate = [] ;
-        data.forEach((user)=>{
+        newDate.forEach((user)=>{
             for (let item in user){
-                if(String(user[item]).includes(sorting)){
+                if(String(user[item]).includes(serchData)){
                     sortDate.push(user)
                     break;
                 }
             }
         })
-        // console.log(newDate);
+        console.log(sortDate);
         setData(sortDate)
     }
 
@@ -142,10 +139,14 @@ function Table() {
         let copyData = [...data]
         console.log('fnSort copydata',copyData,column,sort)
         let newDAte = copyData.sort((a,b)=>{
-            if(sort === 'dex'){
-                if(Number(a[prop]) < Number(b[prop])){return 1}
-            }else{
+            if(sort === 'des'){
+                console.log('des')
                 if(Number(a[prop]) < Number(b[prop])){return -1}
+                if(Number(a[prop]) > Number(b[prop])){return 1}
+            }else{
+                console.log('asc')
+                if(Number(a[prop]) < Number(b[prop])){return 1}
+                if(Number(a[prop]) > Number(b[prop])){return -1}
             }
 
         }
@@ -159,7 +160,8 @@ function Table() {
     return (
         <>
         <div className='box'>
-            <input onChange={(e)=>{setSorting(e.target.value)}} type='text'/>
+            {/* <input onChange={(e)=>{setSerchData(e.target.value)}} type='text'/> */}
+            <input onChange={(e)=>{debounce(serchDataFn(e.target.value),10000)}} type='text'/>
             <button onClick={()=>{serchDataFn()}} className='button'>Search</button>
         </div>
 

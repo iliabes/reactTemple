@@ -11,7 +11,8 @@ body {
     margin: 0px !important;
     padding: 0 !important;
     box-sizing: border-box;
-    background-color: red ;
+
+    height: 100vh;
 }
 
 
@@ -20,13 +21,33 @@ body {
 
 html[data-theme="light"] body{
     background-color: white;
-    
+    /* background: linear-gradient(45deg,#ffe259,#ffa751); */
+    background: linear-gradient(45deg,red,blue);
+    background-size: 200vh 200vh;
+    background-position: 0 50%;
+    animation: gradient 10s ease infinite;
+}
+
+@keyframes gradient {
+    0%{
+        background-position: 0 50%;
+
+    }
+    50%{
+        background-position: 100% 50%;
+
+    }
+    100%{
+        background-position: 0% 50%;
+     
+    }
 }
 
 
 html[data-theme="dark"] body{
     background-color: #000;
-}
+
+} 
 
 
 

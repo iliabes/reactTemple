@@ -1,6 +1,39 @@
 import { useState,useEffect } from 'react';
 
+function useValid(value){
+
+}
+
+
+
+function useInput(){
+ const [inputName , setInputName] = useState('')
+ const [durtInputName , setDurInputName] = useState(false)
+ const [validInputName , setValidInputName] = useState(false)
+
+
+	// useEffect(()=>{
+	// 	setInputName(value)
+	// },[value])
+
+	function onChange(e){
+		setInputName(e)
+		console.log(inputName)
+	}
+
+
+	return [inputName, durtInputName, validInputName,onChange]
+}
+
+
+
+
+
 function myForm(){
+ const user = useInput('Vlue input')
+
+
+
  const [userName , setUserName] = useState('userName')
  const [durtUserName , setDurtUserName] = useState(false)
  const [validUserName , setValidUserName] = useState(false)
@@ -35,6 +68,8 @@ function fnValidPassword(password:string):boolean{
 	const  re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{6,}/;
 	return re.test(String(password));
  }
+
+
 
 
 useEffect(()=>{
@@ -75,6 +110,8 @@ useEffect(()=>{
 
 	return (	
 	<div className="field">
+	{(durtUserName && !validUserName) && <p className=' is-5 mt-2'>error</p>}
+		 	<input  onBlur={()=>{setDurtUserName(true)}} onChange={(e)=>{user.onChange(e.target.value)}} className="input is-success mt-2" type="text" placeholder="userName" value={userName}/>
 		<div className="control">
 			{(durtMail && !valiMail) && <p className=' is-5 mt-2'>error</p>}
 			<input onBlur={()=>{setdurtMail(true)}}  onChange={(e)=>{setMail(e.target.value)}} className="input is-success mt-2" type="text" placeholder="mail" value={mail} />
@@ -85,7 +122,7 @@ useEffect(()=>{
 			<button disabled={!btnActive} className="button is-primary mt-4 ">Submit</button>
 		</div>
 		<div className='mt-2'>
-			<p className="title is-3">Имя: <span className="title is-4">{userName}</span> </p>
+			<p className="title is-3">Имя: <span className="title is-4">{user.inputName}</span> </p>
 			<p className="title is-3">Фамилия: <span className="title is-4">{mail}</span></p>
 		</div>
 	</div>

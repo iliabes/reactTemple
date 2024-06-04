@@ -25,9 +25,10 @@ function useInput(value:string,validParam:string){
     const [inputName , setInputName] = useState(value)
     const [durtInput , setDurtInput] = useState(false)
     let valid  = validFn(inputName,validParam)
-   
+	console.log('render INPUTTTTTTTTTTTTTTTTT')
    
        useEffect(()=>{
+		console.log('USE EFFFFFFFFECXT')
            valid  = validFn(inputName,validParam)
        },[inputName])
    

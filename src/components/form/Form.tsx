@@ -13,10 +13,12 @@ function myForm(){
  const emailInput = useInput('data email','email')
  const passwordInput = useInput('data password ','password')
  const [btnActive , setBtnActive] = useState(false)
-
+ console.log('foorm!!!!!!')
 
 
 	useEffect(()=>{
+		console.log('form use Effect !!!!!!');
+		
 		if(userNameInput.valid && emailInput.valid && passwordInput.valid){
 			console.log('btn active')
 			setBtnActive(true)

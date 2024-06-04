@@ -23,7 +23,7 @@ html[data-theme="light"] body{
     background-color: white;
     /* background: linear-gradient(45deg,#ffe259,#ffa751); */
     background: linear-gradient(45deg,red,blue);
-    background-size: 200vh 200vh;
+    background-size: 200vw 200vh;
     background-position: 0 50%;
     animation: gradient 10s ease infinite;
 }

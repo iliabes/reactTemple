@@ -4,7 +4,8 @@ import { users, docSnap } from "../store/firebase";
 import { fetchFireUsers, addFireUsers } from "../store/redusers/firebaseReduser";
 import { useAppDispatch,useAppSelector } from "../hooks/redux";
 import Table from "../components/Tables/Tables/table";
-
+import ModalWind from "../components/modalWind/modalWind";
+import Form from "../components/form/Form";
 
 
 function FirebasePage() {
@@ -14,6 +15,12 @@ function FirebasePage() {
     let [phone , setPhone] = useState('')
     let fireUsers = useAppSelector(state => state.rootReduser.firebaseReduser.fireUsers)
     const dispatch = useAppDispatch()
+    let [show, setShow] = useState(false)
+
+    function hideModal(){
+        setShow(false)
+    }
+
 
     
 
@@ -65,49 +72,56 @@ function FirebasePage() {
         <>
             <section className="section ">
                 <h2 className="title">Firebase</h2>
-
-
+                
+               
                 <div className="box">
                     <Table/>
                 </div>
+                
+                <ModalWind show={show} hideModal={hideModal} ><Form/></ModalWind>
 
-                <form  className="form">
-                    <div className="field">
-                        <label className="label">Name</label>
-                        <div className="control">
-                            <input onChange={(e)=>{setUsername(e.target.value)}} className="input" type="text" placeholder="Name"/>
-                        </div>
-                    </div>
-                    <div className="field">
-                        <label className="label">email</label>
-                        <div className="control">
-                            <input onChange={(e)=>{setEmail(e.target.value)}} className="input" type="text" placeholder="email"/>
-                        </div>
-                    </div>
-                    <div className="field">
-                        <label className="label">Phone</label>
-                        <div className="control">
-                            <input onChange={(e)=>{setPhone(e.target.value)}} className="input" type="text" placeholder="Phone"/>
-                        </div>
-                    </div>
-                    <div className="field">
-                        <label className="label">website</label>
-                        <div className="control">
-                            <input onChange={(e)=>{setWebsait(e.target.value)}} className="input" type="text" placeholder="website"/>
-                        </div>
-                    </div>
+                <button onClick={()=>{setShow(true)}} className="button  has-background-link">Добавить</button>
 
-                    
-                    
-                    <button onClick={()=>{dispatch(addFireUsers(getDataDorm()))}} className="button  has-background-link">addUsers</button>
-                </form>
-                <div className="box mt-2">
-                    <button onClick={()=>{console.log(fireUsers)}} className="button  has-background-link">console.log</button>
-                    
-                </div>
+
             </section>
         </>
     )
 }
 
 export default FirebasePage;
+
+
+
+{/* <form  className="form">
+<div className="field">
+    <label className="label">Name</label>
+    <div className="control">
+        <input onChange={(e)=>{setUsername(e.target.value)}} className="input" type="text" placeholder="Name"/>
+    </div>
+</div>
+<div className="field">
+    <label className="label">email</label>
+    <div className="control">
+        <input onChange={(e)=>{setEmail(e.target.value)}} className="input" type="text" placeholder="email"/>
+    </div>
+</div>
+<div className="field">
+    <label className="label">Phone</label>
+    <div className="control">
+        <input onChange={(e)=>{setPhone(e.target.value)}} className="input" type="text" placeholder="Phone"/>
+    </div>
+</div>
+<div className="field">
+    <label className="label">website</label>
+    <div className="control">
+        <input onChange={(e)=>{setWebsait(e.target.value)}} className="input" type="text" placeholder="website"/>
+    </div>
+</div>
+
+
+
+<button onClick={()=>{dispatch(addFireUsers(getDataDorm()))}} className="button  has-background-link">addUsers</button>
+</form> */}
+
+
+
